@@ -1,6 +1,6 @@
 import RPi.GPIO as GPIO
 from time import sleep
-GPIO_N = 10
+GPIO_N = 12
 GPIO.setwarnings(False)
 GPIO.setmode(GPIO.BOARD)
 GPIO.setup(GPIO_N, GPIO.IN, pull_up_down=GPIO.PUD_DOWN) # pin 10 to input, init low
@@ -10,5 +10,6 @@ while True:
     if GPIO.input(GPIO_N) == GPIO.HIGH:
         print(button_message)
         #sleep(5)
-    else:
-        print (GPIO.input(GPIO_N))
+        exit(0)
+    print(GPIO.input(GPIO_N))
+
