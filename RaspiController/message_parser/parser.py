@@ -59,7 +59,7 @@ class EmailInterface(MessageInterface):
         email_message = EmailMessage()
         email_message.add_header('To', to_email)
         email_message.add_header('From', from_email)
-        body = "{} {} {}.format(r,g,b)"
+        body = "{} {} {}".format(r,g,b)
         email_message.add_header('Subject','rgb')
         email_message.add_header('X-Priority', '1')
         email_message.set_content(body)
