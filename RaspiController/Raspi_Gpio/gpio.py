@@ -5,7 +5,7 @@ from colorzero import color
 from random import random as rand
 
 class RaspiGPIO(object):
-    """ raspi gpio pin """"
+    """ raspi gpio pin """
 
     def __init__(self, button, red, green, blue):
         # reveive pin location
@@ -14,6 +14,7 @@ class RaspiGPIO(object):
         self.green = green
         self.blue = blue
         GPIO.setwarnings(False)
+        GPIO.setmode(GPIO.BOARD)
         GPIO.setup(red, GPIO.OUT)
         GPIO.setup(green, GPIO.OUT)
         GPIO.setup(blue, GPIO.OUT)

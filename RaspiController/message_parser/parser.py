@@ -22,8 +22,8 @@ class MessageInterface(ABC):
 
 class EmailInterface(MessageInterface):
     """ connects to email and reads last email for input """
-    def __init__(self, hostname, account, password):
-        self.host = hostname
+    def __init__(self, host, account, password):
+        self.host = host
         self.acc = account
         self.pw = password
 

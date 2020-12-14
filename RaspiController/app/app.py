@@ -12,18 +12,27 @@ def rnd():
     return(random.random() > 0.5)
 
 def main():
-    config = json.load(open(('~/Desktop/raspi_config.json')))
+    config = json.load(open(('/home/pi/Desktop/raspi_config.json')))
     hardware = config['gpio_setup']
     connection = config['connection']
     rpi = raspi(**hardware)
     mail = emailparser(**connection)
     rgb = [True, True, True]# init white
     def button_callback(channel):
-        mail.send_message([rnd(), rnd(), rnd()])
+        new = [rnd(), rnd(), rnd()]
+        mail.send_message(*new)
+        print('button pressed')
     GPIO.add_event_detect(rpi.button, GPIO.RISING,callback=button_callback)
     while(True):
-        rgb_new = mail.receive_message()
-        if rgb_new:
-            rgb = rgb_new
-        rpi.led(rgb)
-        sleep(60)
+        try:
+            rgb_new = mail.receive_message()
+            if rgb_new:
+                rgb = rgb_new
+            rpi.led(*rgb)
+            sleep(60)
+        except KeyboardInterrupt:
+            GPIO.cleanup()
+            exit(1)
+
+if __name__== "__main__":
+	main()
