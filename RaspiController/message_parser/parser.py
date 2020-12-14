@@ -29,18 +29,22 @@ class EmailInterface(MessageInterface):
 
     def receive_message(self):
         # connect inbox
+        def str2bool(v):
+                return v.lower() in ("yes", "true", "1", "t")
         imap_server = imaplib.IMAP4_SSL(host=self.host)
         imap_server.login(self.acc, self.pw)
         imap_server.select() # default inbox
         _,message_numbers_raw = imap_server.search(None, 'ALL')
         message_number = message_numbers_raw[0].split()[-1]
         _, msg = imap_server.fetch(message_number, '(RFC822)')
-        message = email.message_from_bytes(msg[0][1])
+        if sys.version_info[0] == 3: #the call changed with python 3
+                message = email.message_from_bytes(msg[0][1])
+        else:
+                message = email.message_from_string(msg[0][1])
         content = message.get_payload()
-        print(content)
         out = []
         try:
-            out = [bool(i) for i in content.split()]
+            out = [str2bool(i) for i in content.split()]
         except:
             pass
         if len(out) == 3:
@@ -55,7 +59,7 @@ class EmailInterface(MessageInterface):
         email_message = EmailMessage()
         email_message.add_header('To', to_email)
         email_message.add_header('From', from_email)
-        body = f"{r} {g} {b}"
+        body = "{} {} {}.format(r,g,b)"
         email_message.add_header('Subject','rgb')
         email_message.add_header('X-Priority', '1')
         email_message.set_content(body)

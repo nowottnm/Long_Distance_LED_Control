@@ -21,13 +21,15 @@ def main():
     def button_callback(channel):
         new = [rnd(), rnd(), rnd()]
         mail.send_message(*new)
+        rpi.led(*new)
         print('button pressed')
     GPIO.add_event_detect(rpi.button, GPIO.RISING,callback=button_callback)
     while(True):
         try:
             rgb_new = mail.receive_message()
-            if rgb_new:
+            if not (rgb_new is None):
                 rgb = rgb_new
+            print("rgb: " + str(rgb) + str(rgb_new))
             rpi.led(*rgb)
             sleep(60)
         except KeyboardInterrupt:

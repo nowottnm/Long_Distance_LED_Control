@@ -20,7 +20,7 @@ setuptools.setup(
     install_requires=[
         "numpy"
     ],
-    # entry_points = {
-    #     'console_scripts': ['geometry_export=geometry_export.runner.run_pipeline:main'],
-    # }
+    entry_points = {
+        'console_scripts': ['led_control=RaspiController.app.app:main'],
+    }
 )
