@@ -1,0 +1,10 @@
+{"gpio_setup":{"red":36,
+	       "blue":38,
+	       "green":40,
+	       "button":8
+	      },
+"connection":{"host":"mail.com",
+	     "account":"dummy@dummy.de",
+	     "password":"****"}
+}
+
