@@ -50,7 +50,7 @@ class EmailInterface(MessageInterface):
 
     def send_message(self, r, g, b):
         """ send message to other particpants of parser """
-        from_email = self.account
+        from_email = self.acc
         to_email = from_email
         email_message = EmailMessage()
         email_message.add_header('To', to_email)
