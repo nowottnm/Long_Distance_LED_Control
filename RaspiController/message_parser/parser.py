@@ -48,7 +48,7 @@ class EmailInterface(MessageInterface):
         else:
             return False
 
-    def send_message(self, r,g,b):
+    def send_message(self, r, g, b):
         """ send message to other particpants of parser """
         from_email = self.account
         to_email = from_email
