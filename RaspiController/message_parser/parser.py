@@ -28,9 +28,10 @@ class EmailInterface(MessageInterface):
         self.pw = password
 
     def receive_message(self):
-        # connect inbox
+        """connect inbox"""
         def str2bool(v):
-                return v.lower() in ("yes", "true", "1", "t")
+            return v.lower() in ("yes", "true", "1", "t")
+
         imap_server = imaplib.IMAP4_SSL(host=self.host)
         imap_server.login(self.acc, self.pw)
         imap_server.select() # default inbox
@@ -52,18 +53,18 @@ class EmailInterface(MessageInterface):
         else:
             return False
 
-    def send_message(self, r, g, b):
+    def send_message(self, rgb):
         """ send message to other particpants of parser """
         from_email = self.acc
         to_email = from_email
         email_message = EmailMessage()
         email_message.add_header('To', to_email)
         email_message.add_header('From', from_email)
-        body = "{} {} {}".format(r,g,b)
-        email_message.add_header('Subject','rgb')
+        body = "{} {} {}".format(*rgb)
+        email_message.add_header('Subject', 'rgb')
         email_message.add_header('X-Priority', '1')
         email_message.set_content(body)
-        smtp_server = SMTP_SSL(self.host, port = SMTP_SSL_PORT)
+        smtp_server = SMTP_SSL(self.host, port=SMTP_SSL_PORT)
         smtp_server.set_debuglevel(1)
         smtp_server.login(self.acc, self.pw)
         smtp_server.sendmail(from_email, to_email, email_message.as_bytes())

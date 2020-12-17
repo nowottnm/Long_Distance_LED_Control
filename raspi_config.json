@@ -1,10 +1,15 @@
-{"gpio_setup":{"red":36,
+{"LED":{"red":36,
 	       "blue":38,
 	       "green":40,
-	       "button":8
+	       "row":
+				 "coll":
 	      },
-"connection":{"host":"mail.com",
-	     "account":"dummy@dummy.de",
-	     "password":"****"}
+"connection":{"EmailInterface":{
+			 				"host":"mail.com",
+	     				"account":"dummy@dummy.de",
+	     				"password":"****"}
+		 }
+"button":{"MatrixButton":{"row":[31,33,35],
+													"coll":[37]}
+				 }
 }
-

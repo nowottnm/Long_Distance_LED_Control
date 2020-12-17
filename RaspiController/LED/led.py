@@ -4,8 +4,8 @@ from gpiozero import Button, RGBLED
 from colorzero import color
 from random import random as rand
 
-class RaspiGPIO(object):
-    """ raspi gpio pin """
+class LedInterface(object):
+    """ raspi gpio pins for LED """
 
     def __init__(self, button, red, green, blue):
         # reveive pin location
@@ -19,14 +19,9 @@ class RaspiGPIO(object):
         GPIO.setup(green, GPIO.OUT)
         GPIO.setup(blue, GPIO.OUT)
         self.led(False, False, False) # inti as off
-        GPIO.setup(button, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 
     def led(self, boolred, boolgreen, boolblue):
         """ set led pins to value """
         GPIO.output(self.red, boolred)
         GPIO.output(self.green, boolgreen)
         GPIO.output(self.blue, boolblue)
-
-    def button(self):
-        """ get button state """
-        return(GPIO.input(self.button) == GPIO.HIGH)
