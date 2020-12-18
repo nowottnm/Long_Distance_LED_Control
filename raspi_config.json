@@ -9,7 +9,10 @@
 	     				"account":"dummy@dummy.de",
 	     				"password":"****"}
 		 }
-"button":{"MatrixButton":{"row":[31,33,35],
-													"coll":[37]}
+"button":{"MatrixButton":{"rows":[31,33,35],
+													"colls":[37],
+												  "mapping":["forward",
+																		 "backward",
+																		 "off"]}
 				 }
 }
