@@ -7,9 +7,8 @@ from random import random as rand
 class LedInterface(object):
     """ raspi gpio pins for LED """
 
-    def __init__(self, button, red, green, blue):
+    def __init__(self, red, green, blue):
         # reveive pin location
-        self.button = button
         self.red = red
         self.green = green
         self.blue = blue

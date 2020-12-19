@@ -12,16 +12,24 @@ import random
 import json
 import time
 import copy
+import sys
+import RaspiController.message_parser.parser as parsers
+import RaspiController.button.button as buttons
+from RaspiController.LED.led import LedInterface
 
 def rnd():
     return(random.random() > 0.5)
 
 
 def main():
-    config = json.load(open(('/home/pi/Desktop/raspi_config.json')))
-    led_config = config['led_setup']
-    connection_config = list(config['connection'].items())
-    button_config = list(config['button'].items())
+    if len(sys.argv) == 2:
+        json_path = sys.argv[1]
+    else:
+        json_path = '/home/pi/Desktop/raspi_config.json'
+    config = json.load(open(json_path))
+    led_config = config['LED']
+    connection_config = list(config['connection'].items())[0]
+    button_config = list(config['button'].items())[0]
     led = LedInterface(**led_config)
     parser = getattr(parsers, connection_config[0])(**connection_config[1])
     button = getattr(buttons, button_config[0])(**button_config[1])
@@ -33,11 +41,12 @@ def main():
     while(True):
         try:
             if button.get_input():
+                print("button is pressed")
                 rgb_current = button.process_input(rgb_current)
                 button_is_pressed = True
             if (time.time() - start_time) > 90:
                 rgb_global = parser.receive_message()
-                if (rgb_global != rgb_current and )
+                if (rgb_global != rgb_current and 
                     not button_is_pressed):   # if cloud is ahead but the own state was not changed by user ...
                     rgb_current = rgb_global  # ... update from cloud
                 if button_is_pressed:         # if the button was pressed update cloud, reset button state
