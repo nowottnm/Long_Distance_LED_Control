@@ -1,18 +1,16 @@
 {"LED":{"red":36,
 	       "blue":38,
-	       "green":40,
-	       "row":
-				 "coll":
+	       "green":40
 	      },
 "connection":{"EmailInterface":{
-			 				"host":"mail.com",
+						"host":"mail.com",
 	     				"account":"dummy@dummy.de",
 	     				"password":"****"}
 		 }
 "button":{"MatrixButton":{"rows":[31,33,35],
-													"colls":[37],
-												  "mapping":["forward",
-																		 "backward",
-																		 "off"]}
+						  "colls":[37],
+						  "mapping":["forward",
+									 "backward",
+									 "off"]}
 				 }
 }
