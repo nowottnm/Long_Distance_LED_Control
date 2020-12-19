@@ -61,6 +61,14 @@ class TactileButton(ButtonInterface):
 
 class MatrixButton(ButtonInterface):
     """ Membrane matrix utton interface """
+    states =[[False, False, False], #0
+             [True, False, False],  #1
+             [False, True, False],  #2
+             [True,  True, False],  #3
+             [False, False, True],  #4
+             [True, False,True],    #5
+             [False, True, True],   #6
+             [True, True, True]]    #7
     def __init__(self, rows, colls, mapping):
         self._rows = rows
         self._colls = colls
@@ -82,8 +90,6 @@ class MatrixButton(ButtonInterface):
         for coll in self._colls:
             GPIO.output(coll, 0)
             for row, maping in zip(self._rows, self._mapping):
-                print((row, GPIO.input(row)))
-            for row, maping in zip(self._rows, self._mapping):
                 if GPIO.input(row) == 0:
                     self._action = maping
                     self._pressed = row
@@ -102,12 +108,14 @@ class MatrixButton(ButtonInterface):
             num = 0
         if self._action == 'forward':
             num = rgb[0] + rgb[1] * 2 + rgb[2] * 4 
-            num = (num + 1) % 8
+            print(num)
+            num = abs((num + 1) % 8)
+            print(num)
         if self._action == 'backward':
             num = rgb[0] + rgb[1] * 2 + rgb[2] * 4 
-            num = (num - 1) % 8
+            num = abs((num - 1) % 8)
         binary = "%03d" % int(bin(num)[2:])
         r = bool(int(binary[0]))
         g = bool(int(binary[1]))
         b = bool(int(binary[2]))
-        return [r, g, b]
+        return self.states[num]
