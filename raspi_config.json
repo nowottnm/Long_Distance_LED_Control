@@ -1,6 +1,6 @@
-{"LED":{"red":36,
-	       "green":38,
-	       "blue":40
+{"LED":{"red":12,
+	       "green":16,
+	       "blue":18
 	      },
 "connection":{"EmailInterface":{
 						"host":"mail.de",
